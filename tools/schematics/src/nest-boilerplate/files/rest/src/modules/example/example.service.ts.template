@@ -1,0 +1,18 @@
+import { Injectable } from '@nestjs/common';
+import { CreateExampleDto <% if (validation === 'zod') { %>, createExampleSchema<% } %> } from './dto/create-example.dto';
+
+@Injectable()
+export class ExampleService {
+  private readonly rows: Array<{ id: number; title: string }> = [];
+
+  list() {
+    return this.rows;
+  }
+
+  create(dto: CreateExampleDto) {
+    <% if (validation === 'zod') { %>const parsed = createExampleSchema.parse(dto);<% } %>
+    const row = { id: this.rows.length + 1, title: <% if (validation === 'zod') { %>parsed.title<% } else { %>dto.title<% } %> };
+    this.rows.push(row);
+    return row;
+  }
+}

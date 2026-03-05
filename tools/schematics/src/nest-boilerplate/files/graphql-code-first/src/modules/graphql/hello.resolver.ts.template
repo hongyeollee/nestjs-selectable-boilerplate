@@ -1,0 +1,10 @@
+import { Query, Resolver } from '@nestjs/graphql';
+import { HelloType } from './hello.type';
+
+@Resolver(() => HelloType)
+export class HelloResolver {
+  @Query(() => HelloType)
+  hello() {
+    return { message: 'hello from code-first' };
+  }
+}

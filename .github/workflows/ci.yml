@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+
+  smoke-official-presets:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Validate node20-nest11
+        run: >-
+          npx schematics ./tools/schematics/collection.json:nest-boilerplate --debug=false --dry-run=true --no-interactive
+          --name ci-node20-nest11
+          --package-manager npm
+          --version-mode preset
+          --preset node20-nest11
+          --runtime fastify
+          --api-style rest
+          --database postgres
+          --orm prisma
+          --auth jwt
+          --validation class-validator
+          --swagger
+          --test-preset unit
+          --no-docker
+      - name: Validate node22-nest11
+        run: >-
+          npx schematics ./tools/schematics/collection.json:nest-boilerplate --debug=false --dry-run=true --no-interactive
+          --name ci-node22-nest11
+          --package-manager npm
+          --version-mode preset
+          --preset node22-nest11
+          --runtime express
+          --api-style graphql
+          --graphql-approach code-first
+          --graphql-driver apollo
+          --database mysql
+          --orm typeorm
+          --auth none
+          --validation class-validator
+          --no-swagger
+          --test-preset unit
+          --no-docker
+      - name: Validate node20-nest10
+        run: >-
+          npx schematics ./tools/schematics/collection.json:nest-boilerplate --debug=false --dry-run=true --no-interactive
+          --name ci-node20-nest10
+          --package-manager npm
+          --version-mode preset
+          --preset node20-nest10
+          --runtime express
+          --api-style rest
+          --database mysql
+          --orm typeorm
+          --auth jwt
+          --validation class-validator
+          --swagger
+          --test-preset unit
+          --no-docker

@@ -1,0 +1,9 @@
+PORT=3000
+JWT_SECRET=replace-me
+<% if (database === 'postgres') { %>
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/<%= name %>
+<% } else if (database === 'mysql') { %>
+DATABASE_URL=mysql://root:root@localhost:3306/<%= name %>
+<% } else { %>
+DATABASE_URL=mongodb://localhost:27017/<%= name %>
+<% } %>

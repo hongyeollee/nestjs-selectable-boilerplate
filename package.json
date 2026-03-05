@@ -1,0 +1,37 @@
+{
+  "name": "@hongyeol/nest-flex-schematics",
+  "version": "0.1.0",
+  "description": "Selectable NestJS boilerplate generator using Nest schematics",
+  "license": "MIT",
+  "private": false,
+  "main": "dist/index.js",
+  "schematics": "tools/schematics/collection.json",
+  "files": [
+    "dist",
+    "tools/schematics/collection.json",
+    "tools/schematics/src/nest-boilerplate/schema.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "CONTRIBUTING.md",
+    "SECURITY.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && rm -rf dist/files && cp -R tools/schematics/src/nest-boilerplate/files dist/files",
+    "clean": "rm -rf dist",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "nestjs",
+    "schematics",
+    "boilerplate",
+    "generator"
+  ],
+  "devDependencies": {
+    "@angular-devkit/core": "^18.2.0",
+    "@angular-devkit/schematics": "^18.2.0",
+    "@angular-devkit/schematics-cli": "^18.2.0",
+    "@types/node": "^20.17.23",
+    "typescript": "^5.8.2"
+  }
+}

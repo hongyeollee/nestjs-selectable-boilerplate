@@ -1,0 +1,15 @@
+<% if (validation === 'class-validator') { %>import { IsString, MinLength } from 'class-validator';
+
+export class CreateExampleDto {
+  @IsString()
+  @MinLength(2)
+  title!: string;
+}
+<% } else { %>import { z } from 'zod';
+
+export const createExampleSchema = z.object({
+  title: z.string().min(2)
+});
+
+export type CreateExampleDto = z.infer<typeof createExampleSchema>;
+<% } %>

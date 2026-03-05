@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NestBoilerplateSchema",
+  "title": "Selectable NestJS boilerplate",
+  "type": "object",
+  "properties": {
+    "name": { "type": "string", "x-prompt": "Project name" },
+    "packageManager": {
+      "type": "string",
+      "enum": ["npm", "pnpm"],
+      "default": "pnpm"
+    },
+    "versionMode": {
+      "type": "string",
+      "enum": ["preset", "custom"],
+      "default": "preset"
+    },
+    "preset": {
+      "type": "string",
+      "enum": ["node20-nest11", "node22-nest11", "node20-nest10"],
+      "default": "node20-nest11"
+    },
+    "nodeVersion": { "type": "string", "default": "20" },
+    "nestVersion": { "type": "string", "default": "11" },
+    "runtime": {
+      "type": "string",
+      "enum": ["express", "fastify"],
+      "default": "fastify"
+    },
+    "apiStyle": {
+      "type": "string",
+      "enum": ["rest", "graphql", "both"],
+      "default": "rest"
+    },
+    "graphqlApproach": {
+      "type": "string",
+      "enum": ["code-first", "schema-first"],
+      "default": "code-first"
+    },
+    "graphqlDriver": {
+      "type": "string",
+      "enum": ["apollo", "mercurius"],
+      "default": "apollo"
+    },
+    "database": {
+      "type": "string",
+      "enum": ["postgres", "mysql", "mongodb"],
+      "default": "postgres"
+    },
+    "orm": {
+      "type": "string",
+      "enum": ["prisma", "typeorm", "mongoose"],
+      "default": "prisma"
+    },
+    "auth": { "type": "string", "enum": ["none", "jwt"], "default": "jwt" },
+    "validation": {
+      "type": "string",
+      "enum": ["class-validator", "zod"],
+      "default": "class-validator"
+    },
+    "swagger": { "type": "boolean", "default": true },
+    "testPreset": {
+      "type": "string",
+      "enum": ["unit", "unit-e2e"],
+      "default": "unit-e2e"
+    },
+    "docker": { "type": "boolean", "default": true }
+  },
+  "required": [
+    "name",
+    "packageManager",
+    "versionMode",
+    "runtime",
+    "apiStyle",
+    "database",
+    "orm",
+    "auth",
+    "validation",
+    "swagger",
+    "testPreset",
+    "docker"
+  ]
+}

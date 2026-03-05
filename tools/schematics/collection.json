@@ -1,0 +1,10 @@
+{
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "nest-boilerplate": {
+      "description": "Generate a selectable NestJS boilerplate",
+      "factory": "../../dist/index#nestBoilerplate",
+      "schema": "./src/nest-boilerplate/schema.json"
+    }
+  }
+}

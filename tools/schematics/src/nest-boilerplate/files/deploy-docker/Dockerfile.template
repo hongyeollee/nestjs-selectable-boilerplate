@@ -1,0 +1,15 @@
+FROM <%= dockerfileBaseImage %>
+WORKDIR /app
+
+COPY package.json ./
+<% if (packageManager === 'pnpm') { %>
+RUN corepack enable && pnpm install
+COPY . .
+RUN pnpm run build
+CMD ["pnpm", "run", "start:prod"]
+<% } else { %>
+RUN npm install
+COPY . .
+RUN npm run build
+CMD ["npm", "run", "start:prod"]
+<% } %>

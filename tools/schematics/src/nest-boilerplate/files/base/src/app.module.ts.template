@@ -1,0 +1,23 @@
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { HealthModule } from './modules/health/health.module';
+<% if (includeRest) { %>import { ExampleModule } from './modules/example/example.module';<% } %>
+<% if (includeGraphql) { %>import { ApiGraphqlModule } from './modules/graphql/graphql.module';<% } %>
+<% if (auth === 'jwt') { %>import { AuthModule } from './modules/auth/auth.module';<% } %>
+<% if (orm === 'prisma') { %>import { PrismaDatabaseModule } from './infrastructure/database/prisma/prisma.module';<% } %>
+<% if (orm === 'typeorm') { %>import { TypeormDatabaseModule } from './infrastructure/database/typeorm/typeorm.module';<% } %>
+<% if (orm === 'mongoose') { %>import { MongooseDatabaseModule } from './infrastructure/database/mongoose/mongoose.module';<% } %>
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    HealthModule,
+    <% if (includeRest) { %>ExampleModule,<% } %>
+    <% if (includeGraphql) { %>ApiGraphqlModule,<% } %>
+    <% if (auth === 'jwt') { %>AuthModule,<% } %>
+    <% if (orm === 'prisma') { %>PrismaDatabaseModule,<% } %>
+    <% if (orm === 'typeorm') { %>TypeormDatabaseModule,<% } %>
+    <% if (orm === 'mongoose') { %>MongooseDatabaseModule,<% } %>
+  ]
+})
+export class AppModule {}

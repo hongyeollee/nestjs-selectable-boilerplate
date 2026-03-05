@@ -1,0 +1,8 @@
+# <%= classify(name) %>
+
+Generated with `@hongyeol/nest-flex-schematics`.
+
+- Support tier: <%= supportTierLabel %>
+- Runtime: <%= runtime %>
+- API: <%= apiStyle %>
+- Database/ORM: <%= database %>/<%= orm %>

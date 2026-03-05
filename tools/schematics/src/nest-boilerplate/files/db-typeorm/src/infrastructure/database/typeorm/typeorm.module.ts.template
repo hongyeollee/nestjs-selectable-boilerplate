@@ -1,0 +1,15 @@
+import { Global, Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
+@Global()
+@Module({
+  imports: [
+    TypeOrmModule.forRoot({
+      type: '<%= database %>' as 'postgres' | 'mysql',
+      url: process.env.DATABASE_URL,
+      autoLoadEntities: true,
+      synchronize: false
+    })
+  ]
+})
+export class TypeormDatabaseModule {}
