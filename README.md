@@ -22,6 +22,8 @@ pnpm dlx @hongyeol/nest-flex-schematics init
 
 인터랙티브 질문 흐름은 `docs/CLI_FLOW.md`를 참고하세요.
 
+CI/자동화 환경에서는 interactive 대신 `generate --no-interactive` 사용을 권장합니다.
+
 ## 보일러플레이트 생성
 
 가장 쉬운 방법은 interactive 모드입니다.
@@ -205,3 +207,12 @@ pnpm run start:dev
 - 버전 정책: SemVer (`0.x` 구간에서는 minor에 breaking change 포함)
 - 변경 기록: `CHANGELOG.md`의 Added/Changed/Fixed/Deprecated 형식 유지
 - 상세 릴리스 절차: `docs/RELEASE_POLICY.md`
+
+배포 직전 권장 순서:
+
+```bash
+npm ci
+npm run build
+npm pack --dry-run
+npm publish --access public
+```
