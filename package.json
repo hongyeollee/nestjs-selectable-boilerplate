@@ -1,5 +1,5 @@
 {
-  "name": "@hongyeol/nest-flex-schematics",
+  "name": "@yeoli/nest-flex-schematics",
   "version": "0.2.0-beta.1",
   "description": "Selectable NestJS boilerplate generator using Nest schematics",
   "license": "MIT",

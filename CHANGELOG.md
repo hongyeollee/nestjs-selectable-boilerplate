@@ -30,7 +30,7 @@ All notable changes to this project are documented here.
 
 ### Changed
 
-- README now prioritizes `npx @hongyeol/nest-flex-schematics init` usage.
+- README now prioritizes `npx @yeoli/nest-flex-schematics init` usage.
 - Added pre-publish command sequence and CI recommendation in README.
 
 ## [0.1.0] - 2026-03-06

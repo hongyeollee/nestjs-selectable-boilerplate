@@ -3,7 +3,7 @@
 Use this command for the best UX:
 
 ```bash
-npx @hongyeol/nest-flex-schematics init
+npx @yeoli/nest-flex-schematics init
 ```
 
 The wizard asks in this order:

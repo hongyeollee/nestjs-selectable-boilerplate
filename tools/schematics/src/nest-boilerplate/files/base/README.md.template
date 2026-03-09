@@ -1,6 +1,6 @@
 # <%= classify(name) %>
 
-Generated with `@hongyeol/nest-flex-schematics`.
+Generated with `@yeoli/nest-flex-schematics`.
 
 - Support tier: <%= supportTierLabel %>
 - Runtime: <%= runtime %>

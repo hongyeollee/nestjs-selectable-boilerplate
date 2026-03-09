@@ -15,8 +15,8 @@ function printHelp() {
       '  generate  Forward options to schematics',
       '',
       'Examples:',
-      '  npx @hongyeol/nest-flex-schematics init',
-      '  npx @hongyeol/nest-flex-schematics generate --name my-app --package-manager npm --version-mode preset --preset node20-nest11 --runtime fastify --api-style rest --database postgres --orm prisma --auth jwt --validation class-validator --swagger --test-preset unit --no-docker'
+      '  npx @yeoli/nest-flex-schematics init',
+      '  npx @yeoli/nest-flex-schematics generate --name my-app --package-manager npm --version-mode preset --preset node20-nest11 --runtime fastify --api-style rest --database postgres --orm prisma --auth jwt --validation class-validator --swagger --test-preset unit --no-docker'
     ].join('\n') + '\n'
   );
 }
