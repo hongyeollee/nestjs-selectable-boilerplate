@@ -1,8 +1,9 @@
 # Nest Flex Schematics
 
-NestJS 보일러플레이트를 선택형으로 생성하는 `Nest schematics` 패키지입니다.
+An interactive Nest schematics package for generating a selectable NestJS boilerplate.
+KR: 선택형 NestJS 보일러플레이트를 생성하는 인터랙티브 Nest schematics 패키지입니다.
 
-## 빠른 시작
+## Quick Start
 
 ```bash
 cd nest-flex-schematics
@@ -11,7 +12,8 @@ npm run build
 npx @yeoli/nest-flex-schematics init
 ```
 
-pnpm 사용 시:
+If you use pnpm:
+KR: pnpm을 사용하는 경우:
 
 ```bash
 cd nest-flex-schematics
@@ -20,19 +22,23 @@ pnpm run build
 pnpm dlx @yeoli/nest-flex-schematics init
 ```
 
-인터랙티브 질문 흐름은 `docs/CLI_FLOW.md`를 참고하세요.
+For the interactive question flow, see `docs/CLI_FLOW.md`.
+KR: 인터랙티브 질문 흐름은 `docs/CLI_FLOW.md`를 참고하세요.
 
-CI/자동화 환경에서는 interactive 대신 `generate --no-interactive` 사용을 권장합니다.
+In CI/automation, prefer `generate --no-interactive`.
+KR: CI/자동화 환경에서는 `generate --no-interactive` 사용을 권장합니다.
 
-## 보일러플레이트 생성
+## Generate a Boilerplate
 
-가장 쉬운 방법은 interactive 모드입니다.
+The easiest way is interactive mode:
+KR: 가장 쉬운 방법은 interactive 모드입니다.
 
 ```bash
 npx @yeoli/nest-flex-schematics init
 ```
 
-직접 옵션을 모두 지정하려면 아래 명령을 사용하세요. 공식 프리셋(`node20-nest11`) 기반 프로젝트가 생성됩니다.
+To provide all options manually, use this command:
+KR: 모든 옵션을 직접 지정하려면 아래 명령을 사용하세요.
 
 ```bash
 npx schematics ./tools/schematics/collection.json:nest-boilerplate \
@@ -52,17 +58,18 @@ npx schematics ./tools/schematics/collection.json:nest-boilerplate \
   --no-docker
 ```
 
-### 옵션 값 가이드
+## Option Values
 
-아래 값들만 사용 가능합니다.
+Only these values are allowed.
+KR: 아래 값만 사용할 수 있습니다.
 
 - `--package-manager`: `npm`, `pnpm`
 - `--version-mode`: `preset`, `custom`
 - `--preset`: `node20-nest11`, `node22-nest11`, `node20-nest10`
 - `--runtime`: `express`, `fastify`
 - `--api-style`: `rest`, `graphql`, `both`
-- `--graphql-approach`: `code-first`, `schema-first` (api-style이 graphql/both일 때)
-- `--graphql-driver`: `apollo`, `mercurius` (api-style이 graphql/both일 때)
+- `--graphql-approach`: `code-first`, `schema-first` (for graphql/both)
+- `--graphql-driver`: `apollo`, `mercurius` (for graphql/both)
 - `--database`: `postgres`, `mysql`, `mongodb`
 - `--orm`: `prisma`, `typeorm`, `mongoose`
 - `--auth`: `none`, `jwt`
@@ -71,44 +78,59 @@ npx schematics ./tools/schematics/collection.json:nest-boilerplate \
 - `--swagger` / `--no-swagger`
 - `--docker` / `--no-docker`
 
-### 허용 조합 / 금지 조합
+## Allowed and Disallowed Combinations
 
-#### DB + ORM
+### DB + ORM
 
-- 허용
-  - `postgres + prisma`
-  - `postgres + typeorm`
-  - `mysql + prisma`
-  - `mysql + typeorm`
-  - `mongodb + mongoose`
-- 금지
-  - `mongodb + prisma`
-  - `mongodb + typeorm`
-  - `postgres/mysql + mongoose`
+Allowed:
+KR: 허용 조합:
 
-#### GraphQL 드라이버
+- `postgres + prisma`
+- `postgres + typeorm`
+- `mysql + prisma`
+- `mysql + typeorm`
+- `mongodb + mongoose`
 
-- `apollo`: `express`, `fastify` 모두 가능
-- `mercurius`: `fastify`에서만 가능
-- `mercurius`는 `nest >= 11`에서만 가능
+Disallowed:
+KR: 금지 조합:
 
-#### 런타임 제약
+- `mongodb + prisma`
+- `mongodb + typeorm`
+- `postgres/mysql + mongoose`
 
-- `nest < 11`에서는 `fastify + swagger` 조합 미지원
+### GraphQL Driver Rules
 
-### 조건부 옵션 규칙
+- `apollo`: supports both `express` and `fastify`
+- `mercurius`: supports only `fastify`
+- `mercurius` requires `nest >= 11`
 
-- `--api-style rest` 선택 시
-  - `--graphql-approach`, `--graphql-driver`는 의미 없음
-- `--api-style graphql` 또는 `--api-style both` 선택 시
-  - `--graphql-approach`, `--graphql-driver`를 함께 지정 권장
-- `--version-mode custom` 선택 시
-  - `--node-version`, `--nest-version`을 추가로 지정 가능
-  - 지원 티어는 `Custom (Best-Effort)`로 동작
+KR:
+- `apollo`: `express`, `fastify` 모두 지원
+- `mercurius`: `fastify`에서만 지원
+- `mercurius`는 `nest >= 11`에서만 지원
 
-### 실패 예시
+### Runtime Constraint
 
-아래 조합은 생성 단계에서 에러로 차단됩니다.
+- `fastify + swagger` is not supported for `nest < 11`
+
+KR:
+- `nest < 11`에서는 `fastify + swagger` 조합을 지원하지 않습니다.
+
+## Conditional Option Rules
+
+- With `--api-style rest`, `--graphql-approach` and `--graphql-driver` are ignored.
+- With `--api-style graphql` or `both`, set both GraphQL options explicitly.
+- With `--version-mode custom`, you can set `--node-version` and `--nest-version`.
+
+KR:
+- `--api-style rest`에서는 `--graphql-approach`, `--graphql-driver`가 무시됩니다.
+- `--api-style graphql` 또는 `both`에서는 GraphQL 옵션을 함께 지정하는 것을 권장합니다.
+- `--version-mode custom`에서는 `--node-version`, `--nest-version`을 추가로 지정할 수 있습니다.
+
+## Invalid Examples (Fail Fast)
+
+These combinations are blocked during generation.
+KR: 아래 조합은 생성 단계에서 에러로 차단됩니다.
 
 ```bash
 # 1) mongodb + prisma
@@ -127,9 +149,10 @@ npx schematics ./tools/schematics/collection.json:nest-boilerplate \
   --no-swagger --test-preset unit --no-docker
 ```
 
-### custom 모드 예시
+## Custom Mode Example
 
-공식 프리셋 대신 직접 버전을 지정하려면 `custom` 모드를 사용합니다.
+Use custom mode when you want to set versions directly instead of presets.
+KR: 공식 프리셋 대신 버전을 직접 지정하려면 custom 모드를 사용하세요.
 
 ```bash
 npx schematics ./tools/schematics/collection.json:nest-boilerplate \
@@ -152,11 +175,13 @@ npx schematics ./tools/schematics/collection.json:nest-boilerplate \
   --docker
 ```
 
-참고:
-- `custom` 모드는 `Custom (Best-Effort)` 지원 티어입니다.
-- 조합 검증 규칙(DB/ORM, GraphQL 드라이버 제약)은 동일하게 적용됩니다.
+Notes:
+KR: 참고:
 
-## 생성 후 실행
+- `custom` mode is a `Custom (Best-Effort)` support tier.
+- DB/ORM and GraphQL validation rules still apply in custom mode.
+
+## Run Generated Project
 
 ```bash
 cd my-nest-app
@@ -166,7 +191,8 @@ npm run build
 npm run start:dev
 ```
 
-pnpm 사용 시:
+If you use pnpm:
+KR: pnpm을 사용하는 경우:
 
 ```bash
 cd my-nest-app
@@ -176,39 +202,37 @@ pnpm run build
 pnpm run start:dev
 ```
 
-기본 확인 URL:
-- Health: `http://localhost:3000/v1/health`
-- Swagger(REST + swagger): `http://localhost:3000/docs`
+Default URLs:
+KR: 기본 확인 URL:
 
-## 공식 프리셋
+- Health: `http://localhost:3000/v1/health`
+- Swagger (REST + swagger): `http://localhost:3000/docs`
+
+## Official Presets
 
 - `node20-nest11` (recommended)
 - `node22-nest11`
 - `node20-nest10` (legacy)
 
-지원 정책:
+Support policy:
+KR: 지원 정책:
+
 - `version-mode=preset`: Official Support
 - `version-mode=custom`: Custom (Best-Effort)
 
-## 주요 규칙
+## Release Rules
 
-- DB/ORM 허용 조합
-  - postgres: prisma, typeorm
-  - mysql: prisma, typeorm
-  - mongodb: mongoose
-- GraphQL 드라이버
-  - apollo: express, fastify
-  - mercurius: fastify only (`nest >= 11`)
-- 런타임 제약
-  - `nest < 11`에서는 `fastify + swagger` 조합 미지원
+- Version policy: SemVer (`0.x` may include breaking changes in minor)
+- Changelog format: keep Added/Changed/Fixed/Deprecated in `CHANGELOG.md`
+- Detailed release flow: `docs/RELEASE_POLICY.md`
 
-## 릴리스 규칙
-
-- 버전 정책: SemVer (`0.x` 구간에서는 minor에 breaking change 포함)
-- 변경 기록: `CHANGELOG.md`의 Added/Changed/Fixed/Deprecated 형식 유지
+KR:
+- 버전 정책: SemVer (`0.x` 구간에서는 minor에 breaking change 포함 가능)
+- 변경 이력 형식: `CHANGELOG.md`에서 Added/Changed/Fixed/Deprecated 유지
 - 상세 릴리스 절차: `docs/RELEASE_POLICY.md`
 
-배포 직전 권장 순서:
+Recommended pre-publish order:
+KR: 배포 직전 권장 순서:
 
 ```bash
 npm ci
